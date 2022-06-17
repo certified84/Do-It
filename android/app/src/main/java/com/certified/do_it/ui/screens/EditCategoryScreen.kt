@@ -5,7 +5,6 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.certified.do_it.R
-import com.certified.do_it.data.model.Todo
+import com.certified.do_it.data.model.Category
 import com.certified.do_it.ui.theme.OnBackground
 import com.certified.do_it.ui.theme.Primary
 import com.certified.do_it.ui.theme.SpaceGrotesk
@@ -30,10 +29,10 @@ import com.certified.do_it.ui.theme.White
 import com.certified.do_it.utils.Extensions.showToast
 
 @Composable
-fun EditTodoScreen(todo: Todo) {
+fun EditCategoryScreen(category: Category) {
 
     val context = LocalContext.current
-    val currentTodo = remember { mutableStateOf(todo) }
+    val currentCategory = remember { mutableStateOf(category) }
 
     val scrollState = rememberScrollState()
     ConstraintLayout(
@@ -44,7 +43,7 @@ fun EditTodoScreen(todo: Todo) {
                 orientation = Orientation.Vertical
             )
     ) {
-        val (closeButton, todoEditText, datePicker, flag, category, colorPicker, saveButton) = createRefs()
+        val (closeButton, title, categoryTitleEditText, divider, categoryDescriptionEditText, flag, colorPicker, saveButton) = createRefs()
 
         Image(
             painter = painterResource(id = R.drawable.ic_close),
@@ -56,26 +55,47 @@ fun EditTodoScreen(todo: Todo) {
                     end.linkTo(parent.end, 24.dp)
                 })
 
-        val topGuideline = createGuidelineFromTop(.35f)
+        val topGuideline = createGuidelineFromTop(.30f)
 
-        val todoText = remember { mutableStateOf(currentTodo.value.todo) }
-        val emptyTextError = remember { mutableStateOf(false) }
+        Text(
+            text = "Enter category details",
+            fontFamily = SpaceGrotesk,
+            fontWeight = FontWeight.Medium,
+            fontSize = 26.sp, modifier = Modifier.constrainAs(title) {
+                top.linkTo(topGuideline)
+                start.linkTo(parent.start, 24.dp)
+            }
+        )
+
+        Divider(
+            color = Primary,
+            modifier = Modifier
+                .width(3.dp)
+                .height(40.dp)
+                .constrainAs(divider) {
+                    top.linkTo(categoryTitleEditText.top)
+                    bottom.linkTo(categoryTitleEditText.bottom)
+                    start.linkTo(categoryTitleEditText.start, 16.dp)
+                })
+
+        val categoryTitle = remember { mutableStateOf(currentCategory.value.name) }
+        val emptyTitleTextError = remember { mutableStateOf(false) }
         OutlinedTextField(
-            value = todoText.value,
+            value = categoryTitle.value,
             onValueChange = {
-                todoText.value = it
-                if (it.isNotEmpty()) emptyTextError.value = false
+                categoryTitle.value = it
+                if (it.isNotEmpty()) emptyTitleTextError.value = false
             },
-            isError = emptyTextError.value,
+            isError = emptyTitleTextError.value,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(end = 24.dp, start = 24.dp)
-                .constrainAs(todoEditText) {
-                    top.linkTo(topGuideline)
+                .constrainAs(categoryTitleEditText) {
+                    top.linkTo(title.bottom, 24.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            maxLines = 4,
+            singleLine = true,
             textStyle = TextStyle(
                 fontFamily = SpaceGrotesk,
                 fontSize = 24.sp,
@@ -83,10 +103,10 @@ fun EditTodoScreen(todo: Todo) {
             ),
             placeholder = {
                 Text(
-                    text = "Enter new todo",
+                    text = "Title",
                     fontFamily = SpaceGrotesk,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 24.sp, modifier = Modifier.alpha(.5f)
+                    fontSize = 26.sp, modifier = Modifier.alpha(.5f)
                 )
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -95,59 +115,53 @@ fun EditTodoScreen(todo: Todo) {
             )
         )
 
-        val reminder = remember { mutableStateOf(currentTodo.value.reminder) }
-        ExtendedFloatingActionButton(text = {
-            Text(
-                text = "Today",
+        val categoryDescription = remember { mutableStateOf(currentCategory.value.description) }
+        val emptyDescriptionTextError = remember { mutableStateOf(false) }
+        OutlinedTextField(
+            value = categoryDescription.value,
+            onValueChange = {
+                categoryDescription.value = it
+                if (it.isNotEmpty()) emptyDescriptionTextError.value = false
+            },
+            isError = emptyDescriptionTextError.value,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 24.dp, start = 24.dp)
+                .constrainAs(categoryDescriptionEditText) {
+                    top.linkTo(categoryTitleEditText.bottom, 1.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            maxLines = 4,
+            textStyle = TextStyle(
                 fontFamily = SpaceGrotesk,
-                fontWeight = FontWeight.Medium,
-                fontSize = 18.sp, color = OnBackground
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Medium
+            ),
+            placeholder = {
+                Text(
+                    text = "Description",
+                    fontFamily = SpaceGrotesk,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 18.sp, modifier = Modifier.alpha(.5f)
+                )
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent
             )
-        }, onClick = { /*TODO*/ }, icon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_calendar),
-                contentDescription = "Date picker",
-                tint = OnBackground
-            )
-        }, modifier = Modifier
-            .alpha(.5f)
-            .constrainAs(datePicker) {
-                top.linkTo(todoEditText.bottom, 10.dp)
-                start.linkTo(parent.start, 24.dp)
-                end.linkTo(flag.start)
-            }
-            .border(
-                border = BorderStroke(1.dp, OnBackground),
-                shape = RoundedCornerShape(15.dp)
-            ), backgroundColor = White
         )
 
         FloatingActionButton(onClick = { /*TODO*/ }, modifier = Modifier
             .constrainAs(flag) {
-                top.linkTo(datePicker.top)
-                bottom.linkTo(datePicker.bottom)
-                start.linkTo(datePicker.end)
-                end.linkTo(category.start)
+                top.linkTo(categoryDescriptionEditText.bottom, 30.dp)
+                start.linkTo(parent.start, 24.dp)
+                end.linkTo(colorPicker.start)
             }
             .alpha(.5f), backgroundColor = White) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_flag),
                 contentDescription = "Priority picker",
-                tint = OnBackground
-            )
-        }
-
-        FloatingActionButton(onClick = { /*TODO*/ }, modifier = Modifier
-            .constrainAs(category) {
-                top.linkTo(datePicker.top)
-                bottom.linkTo(datePicker.bottom)
-                start.linkTo(flag.end)
-                end.linkTo(colorPicker.start)
-            }
-            .alpha(.5f), backgroundColor = White) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_category),
-                contentDescription = "Category picker",
                 tint = OnBackground
             )
         }
@@ -165,9 +179,9 @@ fun EditTodoScreen(todo: Todo) {
                 )
                 .background(shape = CircleShape, color = White)
                 .constrainAs(colorPicker) {
-                    top.linkTo(datePicker.top)
-                    bottom.linkTo(datePicker.bottom)
-                    start.linkTo(category.end)
+                    top.linkTo(flag.top)
+                    bottom.linkTo(flag.bottom)
+                    start.linkTo(flag.end)
                     end.linkTo(parent.end, 24.dp)
                 }
         ) {
@@ -177,7 +191,7 @@ fun EditTodoScreen(todo: Todo) {
                     .border(
                         border = BorderStroke(
                             width = 1.dp,
-                            color = currentTodo.value.category.color
+                            color = currentCategory.value.color
                         ),
                         shape = CircleShape
                     )
@@ -187,7 +201,7 @@ fun EditTodoScreen(todo: Todo) {
                 Box(
                     modifier = Modifier
                         .size(18.dp)
-                        .background(shape = CircleShape, color = currentTodo.value.category.color)
+                        .background(shape = CircleShape, color = currentCategory.value.color)
                         .align(Alignment.Center)
                 )
             }
@@ -202,7 +216,8 @@ fun EditTodoScreen(todo: Todo) {
             )
         }, onClick = {
             showToast(context, "Coming soon")
-            if (todoText.value.isBlank()) emptyTextError.value = true
+            if (categoryTitle.value.isBlank()) emptyTitleTextError.value = true
+            if (categoryDescription.value.isBlank()) emptyDescriptionTextError.value = true
         }, icon = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_check),

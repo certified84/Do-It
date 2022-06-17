@@ -10,10 +10,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.certified.do_it.data.model.Todo
-import com.certified.do_it.ui.screens.EditTodoScreen
-import com.certified.do_it.ui.screens.SettingsScreen
+import com.certified.do_it.data.model.Category
+import com.certified.do_it.ui.screens.EditCategoryScreen
 import com.certified.do_it.ui.theme.DoItTheme
+import com.certified.do_it.ui.theme.PrimaryContainer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    EditTodoScreen(todo = Todo())
+                    EditCategoryScreen(
+                        category = Category(
+//                            name = "School",
+//                            description = "I love bad bitches that's my fucking problem",
+//                            color = PrimaryContainer
+                        )
+                    )
                 }
             }
         }
