@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Do-It</string>
+    <string name="just_now">Just now</string>
+    <string name="a_minute_ago">a minute ago</string>
+    <string name="minutes_ago">minutes ago</string>
+    <string name="an_hour_ago">an hour ago</string>
+    <string name="hours_ago">hours ago</string>
+    <string name="a_day_ago">a day ago</string>
 </resources>

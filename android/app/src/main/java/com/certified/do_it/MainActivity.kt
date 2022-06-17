@@ -10,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.certified.do_it.data.model.Todo
+import com.certified.do_it.ui.screens.EditTodoScreen
 import com.certified.do_it.ui.screens.SettingsScreen
 import com.certified.do_it.ui.theme.DoItTheme
 
@@ -23,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    SettingsScreen()
+                    EditTodoScreen(todo = Todo())
                 }
             }
         }
