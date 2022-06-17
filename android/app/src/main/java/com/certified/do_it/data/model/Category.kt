@@ -5,6 +5,7 @@ import com.certified.do_it.ui.theme.Primary
 
 data class Category(
     var name: String = "",
+    var description: String = "",
     var color: Color = Primary,
     var todos: List<Todo> = listOf()
 )
