@@ -6,4 +6,5 @@
     <string name="an_hour_ago">an hour ago</string>
     <string name="hours_ago">hours ago</string>
     <string name="a_day_ago">a day ago</string>
+    <string name="app_version">v0.0.1-beta01(12072022)</string>
 </resources>

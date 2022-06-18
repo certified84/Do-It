@@ -8,4 +8,6 @@ data class Category(
     var description: String = "",
     var color: Color = Primary,
     var todos: List<Todo> = listOf()
-)
+) {
+    val percent = if(todos.isNotEmpty()) (todos.count { it.isDone } / todos.count()) * 100f else 0.0f
+}
