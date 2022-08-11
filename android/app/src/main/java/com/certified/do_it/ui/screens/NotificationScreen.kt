@@ -1,6 +1,7 @@
 package com.certified.do_it.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,7 +27,7 @@ fun NotificationScreen() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 24.dp, end = 24.dp, top = 28.dp)
-            .background(color = Background)
+            .background(color = if (isSystemInDarkTheme()) BackgroundDark else Background)
     ) {
         val (backButton, title, comingSoon) = createRefs()
 
@@ -34,7 +35,7 @@ fun NotificationScreen() {
             modifier = Modifier
                 .size(40.dp)
                 .alpha(1f)
-                .background(color = PrimaryContainer, shape = CircleShape)
+                .background(color = if (isSystemInDarkTheme()) PrimaryContainerDark else PrimaryContainer, shape = CircleShape)
                 .constrainAs(backButton) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
@@ -42,7 +43,7 @@ fun NotificationScreen() {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = "Back button",
-                tint = OnPrimaryContainer,
+                tint = if (!isSystemInDarkTheme()) OnPrimaryContainer else OnPrimaryContainerDark,
                 modifier = Modifier.size(24.dp)
             )
         }
@@ -51,7 +52,7 @@ fun NotificationScreen() {
             text = "Notifications",
             fontSize = 26.sp,
             fontFamily = SpaceGrotesk,
-            color = OnBackground,
+            color = if (isSystemInDarkTheme()) OnBackgroundDark else OnBackground,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(backButton.top)
@@ -65,14 +66,16 @@ fun NotificationScreen() {
             text = "Nothing's here yet...",
             fontSize = 26.sp,
             fontFamily = SpaceGrotesk,
-            color = OnBackground,
+            color = if (isSystemInDarkTheme()) OnBackgroundDark else OnBackground,
             fontWeight = FontWeight.Medium,
-            modifier = Modifier.constrainAs(comingSoon) {
-                top.linkTo(title.bottom)
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }.alpha(.5f)
+            modifier = Modifier
+                .constrainAs(comingSoon) {
+                    top.linkTo(title.bottom)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .alpha(.5f)
         )
     }
 }
