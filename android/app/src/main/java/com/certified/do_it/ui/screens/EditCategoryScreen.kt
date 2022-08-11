@@ -22,10 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.certified.do_it.R
 import com.certified.do_it.data.model.Category
-import com.certified.do_it.ui.theme.OnBackground
-import com.certified.do_it.ui.theme.Primary
-import com.certified.do_it.ui.theme.SpaceGrotesk
-import com.certified.do_it.ui.theme.White
+import com.certified.do_it.ui.theme.*
 import com.certified.do_it.utils.Extensions.showToast
 
 @Composable
@@ -68,7 +65,7 @@ fun EditCategoryScreen(category: Category) {
         )
 
         Divider(
-            color = Primary,
+            color = if(isSystemInDarkTheme()) PrimaryDark else Primary,
             modifier = Modifier
                 .width(3.dp)
                 .height(40.dp)
@@ -158,11 +155,11 @@ fun EditCategoryScreen(category: Category) {
                 start.linkTo(parent.start, 24.dp)
                 end.linkTo(colorPicker.start)
             }
-            .alpha(.5f), backgroundColor = White) {
+            .alpha(.5f), backgroundColor = if(isSystemInDarkTheme()) BackgroundDark else White) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_flag),
                 contentDescription = "Priority picker",
-                tint = OnBackground
+                tint = if(isSystemInDarkTheme()) OnBackgroundDark else OnBackground
             )
         }
 
@@ -177,7 +174,7 @@ fun EditCategoryScreen(category: Category) {
                     ),
                     shape = CircleShape
                 )
-                .background(shape = CircleShape, color = White)
+                .background(shape = CircleShape, color = if(isSystemInDarkTheme()) BackgroundDark else White)
                 .constrainAs(colorPicker) {
                     top.linkTo(flag.top)
                     bottom.linkTo(flag.bottom)
@@ -195,7 +192,7 @@ fun EditCategoryScreen(category: Category) {
                         ),
                         shape = CircleShape
                     )
-                    .background(shape = CircleShape, color = White)
+                    .background(shape = CircleShape, color = if(isSystemInDarkTheme()) BackgroundDark else White)
                     .align(Alignment.Center)
             ) {
                 Box(
@@ -226,6 +223,6 @@ fun EditCategoryScreen(category: Category) {
         }, modifier = Modifier.constrainAs(saveButton) {
             bottom.linkTo(parent.bottom, 32.dp)
             end.linkTo(closeButton.end)
-        }, backgroundColor = Primary)
+        }, backgroundColor = if(isSystemInDarkTheme()) PrimaryDark else Primary)
     }
 }
