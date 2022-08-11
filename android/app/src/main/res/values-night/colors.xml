@@ -10,7 +10,7 @@
 
     <color name="primary">#B32821</color>
     <color name="onPrimary">@color/white</color>
-    <color name="logoBackgroundColor">@color/white</color>
+    <color name="logoBackgroundColor">#FF211A19</color>
 <!--    val Background = Color(0xFFFCFCFC)-->
 <!--    val OnBackground = Color(0xFF211A19)-->
 <!--    val Surface = Color(0xFFFCFCFC)-->

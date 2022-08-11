@@ -1,7 +1,9 @@
 package com.certified.do_it.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -32,8 +35,8 @@ fun AboutScreen() {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
+            .background(color = if (isSystemInDarkTheme()) BackgroundDark else Background)
             .padding(start = 24.dp, end = 24.dp, top = 28.dp)
-            .background(color = Background)
     ) {
         val (backButton, title, appLogo, appVersion, licenceCard) = createRefs()
 
@@ -58,7 +61,7 @@ fun AboutScreen() {
             text = "About",
             fontSize = 26.sp,
             fontFamily = SpaceGrotesk,
-            color = OnBackground,
+            color = if (isSystemInDarkTheme()) White else OnBackground,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(backButton.top)
@@ -82,7 +85,7 @@ fun AboutScreen() {
             text = stringResource(id = R.string.app_version),
             fontSize = 14.sp,
             fontFamily = SpaceGrotesk,
-            color = OnBackground,
+            color = if (isSystemInDarkTheme()) White else OnBackground,
             fontWeight = FontWeight.Medium,
             modifier = Modifier
                 .constrainAs(appVersion) {
@@ -155,5 +158,21 @@ fun AboutScreen() {
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun AboutScreenPreview() {
+    DoItTheme {
+        AboutScreen()
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AboutScreenPreviewNight() {
+    DoItTheme {
+        AboutScreen()
     }
 }

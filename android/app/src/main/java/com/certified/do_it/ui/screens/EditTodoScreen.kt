@@ -1,5 +1,6 @@
 package com.certified.do_it.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
@@ -18,15 +19,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.certified.do_it.R
 import com.certified.do_it.data.model.Todo
-import com.certified.do_it.ui.theme.OnBackground
-import com.certified.do_it.ui.theme.Primary
-import com.certified.do_it.ui.theme.SpaceGrotesk
-import com.certified.do_it.ui.theme.White
+import com.certified.do_it.ui.theme.*
 import com.certified.do_it.utils.Extensions.showToast
 
 @Composable
@@ -43,6 +42,7 @@ fun EditTodoScreen(todo: Todo) {
                 state = scrollState,
                 orientation = Orientation.Vertical
             )
+            .background(color = if (isSystemInDarkTheme()) BackgroundDark else Background)
     ) {
         val (closeButton, todoEditText, datePicker, flag, category, colorPicker, saveButton) = createRefs()
 
@@ -198,6 +198,7 @@ fun EditTodoScreen(todo: Todo) {
                 text = "Save",
                 fontFamily = SpaceGrotesk,
                 fontWeight = FontWeight.Medium,
+                color = White,
                 fontSize = 18.sp
             )
         }, onClick = {
@@ -206,11 +207,28 @@ fun EditTodoScreen(todo: Todo) {
         }, icon = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_check),
+                tint = White,
                 contentDescription = "Save button"
             )
         }, modifier = Modifier.constrainAs(saveButton) {
             bottom.linkTo(parent.bottom, 32.dp)
             end.linkTo(closeButton.end)
         }, backgroundColor = Primary)
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun EditTodoScreenPreview() {
+    DoItTheme {
+        EditTodoScreen(Todo())
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun EditTodoScreenPreviewNight() {
+    DoItTheme {
+        EditTodoScreen(Todo())
     }
 }

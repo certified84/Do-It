@@ -1,11 +1,11 @@
 package com.certified.do_it.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -26,8 +27,8 @@ fun NotificationScreen() {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 24.dp, end = 24.dp, top = 28.dp)
             .background(color = if (isSystemInDarkTheme()) BackgroundDark else Background)
+            .padding(start = 24.dp, end = 24.dp, top = 28.dp)
     ) {
         val (backButton, title, comingSoon) = createRefs()
 
@@ -35,7 +36,7 @@ fun NotificationScreen() {
             modifier = Modifier
                 .size(40.dp)
                 .alpha(1f)
-                .background(color = if (isSystemInDarkTheme()) PrimaryContainerDark else PrimaryContainer, shape = CircleShape)
+//                .background(shape = CircleShape)
                 .constrainAs(backButton) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
@@ -77,5 +78,21 @@ fun NotificationScreen() {
                 }
                 .alpha(.5f)
         )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun NotificationScreenPreview() {
+    DoItTheme {
+        NotificationScreen()
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun NotificationScreenPreviewNight() {
+    DoItTheme {
+        NotificationScreen()
     }
 }

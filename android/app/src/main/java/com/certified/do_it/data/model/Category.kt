@@ -3,7 +3,7 @@ package com.certified.do_it.data.model
 import android.content.Context
 import androidx.compose.ui.graphics.Color
 import com.certified.do_it.ui.theme.Primary
-import com.certified.do_it.MainActivity
+import com.certified.do_it.ui.MainActivity
 
 data class Category(
     var name: String = "",

@@ -1,6 +1,8 @@
 package com.certified.do_it.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -25,8 +28,8 @@ fun AnalyticsScreen() {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
+            .background(color = if (isSystemInDarkTheme()) BackgroundDark else Background)
             .padding(start = 24.dp, end = 24.dp, top = 28.dp)
-            .background(color = Background)
     ) {
         val (backButton, title, comingSoon) = createRefs()
 
@@ -74,5 +77,21 @@ fun AnalyticsScreen() {
                 end.linkTo(parent.end)
             }.alpha(.5f)
         )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun AnalyticsScreenPreview() {
+    DoItTheme {
+        AnalyticsScreen()
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AnalyticsScreenPreviewNight() {
+    DoItTheme {
+        AnalyticsScreen()
     }
 }

@@ -1,5 +1,6 @@
 package com.certified.do_it.ui.screens
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
@@ -17,13 +18,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.certified.do_it.R
 import com.certified.do_it.data.model.Category
+import com.certified.do_it.data.model.Emoji
 import com.certified.do_it.ui.theme.*
 import com.certified.do_it.utils.Extensions.showToast
+import com.google.gson.Gson
 
 @Composable
 fun EditCategoryScreen(category: Category) {
@@ -39,6 +43,7 @@ fun EditCategoryScreen(category: Category) {
                 state = scrollState,
                 orientation = Orientation.Vertical
             )
+            .background(color = if (isSystemInDarkTheme()) BackgroundDark else Background)
     ) {
         val (closeButton, title, categoryTitleEditText, divider, categoryDescriptionEditText, flag, colorPicker, saveButton) = createRefs()
 
@@ -58,6 +63,7 @@ fun EditCategoryScreen(category: Category) {
             text = "Enter category details",
             fontFamily = SpaceGrotesk,
             fontWeight = FontWeight.Medium,
+            color = if (isSystemInDarkTheme()) White else OnBackground,
             fontSize = 26.sp, modifier = Modifier.constrainAs(title) {
                 top.linkTo(topGuideline)
                 start.linkTo(parent.start, 24.dp)
@@ -65,7 +71,7 @@ fun EditCategoryScreen(category: Category) {
         )
 
         Divider(
-            color = if(isSystemInDarkTheme()) PrimaryDark else Primary,
+            color = if (isSystemInDarkTheme()) PrimaryDark else Primary,
             modifier = Modifier
                 .width(3.dp)
                 .height(40.dp)
@@ -155,11 +161,11 @@ fun EditCategoryScreen(category: Category) {
                 start.linkTo(parent.start, 24.dp)
                 end.linkTo(colorPicker.start)
             }
-            .alpha(.5f), backgroundColor = if(isSystemInDarkTheme()) BackgroundDark else White) {
+            .alpha(.5f), backgroundColor = if (isSystemInDarkTheme()) BackgroundDark else White) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_flag),
                 contentDescription = "Priority picker",
-                tint = if(isSystemInDarkTheme()) OnBackgroundDark else OnBackground
+                tint = if (isSystemInDarkTheme()) OnBackgroundDark else OnBackground
             )
         }
 
@@ -174,7 +180,10 @@ fun EditCategoryScreen(category: Category) {
                     ),
                     shape = CircleShape
                 )
-                .background(shape = CircleShape, color = if(isSystemInDarkTheme()) BackgroundDark else White)
+                .background(
+                    shape = CircleShape,
+                    color = if (isSystemInDarkTheme()) BackgroundDark else White
+                )
                 .constrainAs(colorPicker) {
                     top.linkTo(flag.top)
                     bottom.linkTo(flag.bottom)
@@ -192,7 +201,10 @@ fun EditCategoryScreen(category: Category) {
                         ),
                         shape = CircleShape
                     )
-                    .background(shape = CircleShape, color = if(isSystemInDarkTheme()) BackgroundDark else White)
+                    .background(
+                        shape = CircleShape,
+                        color = if (isSystemInDarkTheme()) BackgroundDark else White
+                    )
                     .align(Alignment.Center)
             ) {
                 Box(
@@ -223,6 +235,40 @@ fun EditCategoryScreen(category: Category) {
         }, modifier = Modifier.constrainAs(saveButton) {
             bottom.linkTo(parent.bottom, 32.dp)
             end.linkTo(closeButton.end)
-        }, backgroundColor = if(isSystemInDarkTheme()) PrimaryDark else Primary)
+        }, backgroundColor = if (isSystemInDarkTheme()) PrimaryDark else Primary)
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun EditCategoryScreenPreview() {
+    DoItTheme {
+        val json = LocalContext.current.resources.openRawResource(R.raw.emoji)
+            .bufferedReader().use { it.readText() }
+        val objects = Gson().fromJson(json, Array<Emoji>::class.java)
+        EditCategoryScreen(
+            category = Category(
+                name = "Go Fuck yourself",
+                description = "I ain't gat one bitch!",
+                emoji = objects[0]
+            )
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun EditCategoryScreenPreviewNight() {
+    DoItTheme {
+        val json = LocalContext.current.resources.openRawResource(R.raw.emoji)
+            .bufferedReader().use { it.readText() }
+        val objects = Gson().fromJson(json, Array<Emoji>::class.java)
+        EditCategoryScreen(
+            category = Category(
+                name = "Go Fuck yourself",
+                description = "I ain't gat one bitch!",
+                emoji = objects[0]
+            )
+        )
     }
 }
