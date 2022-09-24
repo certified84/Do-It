@@ -16,6 +16,8 @@
 
 package com.certified.do_it.data.model
 
+import androidx.compose.ui.graphics.Color
+import com.certified.do_it.ui.theme.Primary
 import java.util.*
 
 /**
@@ -36,5 +38,6 @@ data class Todo(
     val isDone: Boolean = false,
     var reminder: Long? = Date().time,
     var started: Boolean = false,
-    var category: Category = Category()
+    val categoryColor: Color = Primary
+//    var category: Category = Category()
 )

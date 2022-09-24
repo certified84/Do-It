@@ -17,5 +17,26 @@
 package com.certified.do_it.data.model
 
 import android.graphics.Bitmap
+import androidx.compose.ui.graphics.Color
 
-data class User(val id: String = "", val name: String = "", val profileImage: Bitmap? = null)
+data class User(
+    val id: String = "",
+    val name: String = "",
+    val profileImage: Bitmap? = null,
+    val emoji: Emoji? = Emoji(
+        emoji = "\uD83D\uDC51",
+        description = "crown",
+        category = "objects",
+        aliases = listOf("crown"),
+        tags = listOf("king", "queen", "royal"),
+        unicode_version = "6.0",
+        ios_version = "6.0"
+    ),
+    val categories: List<Category> = listOf()
+) {
+    val todos: MutableList<Todo> = mutableListOf()
+
+    init {
+        categories.forEach { category -> todos.addAll(category.todos) }
+    }
+}
