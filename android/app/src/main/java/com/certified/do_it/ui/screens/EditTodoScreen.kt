@@ -177,7 +177,7 @@ fun EditTodoScreen(todo: Todo) {
                     .border(
                         border = BorderStroke(
                             width = 1.dp,
-                            color = currentTodo.value.category.color
+                            color = currentTodo.value.categoryColor
                         ),
                         shape = CircleShape
                     )
@@ -187,7 +187,7 @@ fun EditTodoScreen(todo: Todo) {
                 Box(
                     modifier = Modifier
                         .size(18.dp)
-                        .background(shape = CircleShape, color = currentTodo.value.category.color)
+                        .background(shape = CircleShape, color = currentTodo.value.categoryColor)
                         .align(Alignment.Center)
                 )
             }
