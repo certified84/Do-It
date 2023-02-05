@@ -3,9 +3,10 @@ package com.certified.do_it.ui.components
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +26,7 @@ import com.certified.do_it.ui.theme.White
 fun CategoryContent(category: Category) {
     Card(
         shape = RoundedCornerShape(30.dp),
-        backgroundColor = category.color,
+//        colors = category.color,
         modifier = Modifier
             .width(175.dp)
     ) {
@@ -90,7 +91,7 @@ fun CategoryContent(category: Category) {
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            LinearProgressIndicator(progress = 40f, backgroundColor = White)
+            LinearProgressIndicator(progress = 40f, color = White)
         }
     }
 }

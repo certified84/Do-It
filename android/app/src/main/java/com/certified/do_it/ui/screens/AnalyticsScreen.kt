@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -70,12 +70,14 @@ fun AnalyticsScreen() {
             fontFamily = SpaceGrotesk,
             color = OnBackground,
             fontWeight = FontWeight.Medium,
-            modifier = Modifier.constrainAs(comingSoon) {
-                top.linkTo(title.bottom)
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }.alpha(.5f)
+            modifier = Modifier
+                .constrainAs(comingSoon) {
+                    top.linkTo(title.bottom)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .alpha(.5f)
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.certified.do_it.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -17,7 +17,7 @@ private val bold = Font(R.font.space_grotesk_bold, FontWeight.W700)
 val SpaceGrotesk = FontFamily(light, regular, medium, semibold, bold)
 
 val Typography = Typography(
-    defaultFontFamily = SpaceGrotesk,
+//    defaultFontFamily = SpaceGrotesk,
 //    body1 = TextStyle(
 //        fontFamily = SpaceGrotesk,
 //        fontWeight = FontWeight.Normal,

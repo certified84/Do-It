@@ -12,6 +12,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -26,7 +30,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.certified.do_it.R
 import com.certified.do_it.ui.theme.*
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AboutScreen() {
 
@@ -128,8 +131,8 @@ fun AboutScreen() {
 //        }
 
         Card(
-            backgroundColor = PrimaryContainer,
-            onClick = { },
+//            backgroundColor = PrimaryContainer,
+//            onClick = { },
             shape = RoundedCornerShape(corner = CornerSize(15.dp)),
             modifier = Modifier
                 .fillMaxWidth()

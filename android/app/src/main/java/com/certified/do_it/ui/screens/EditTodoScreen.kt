@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +29,7 @@ import com.certified.do_it.data.model.Todo
 import com.certified.do_it.ui.theme.*
 import com.certified.do_it.utils.Extensions.showToast
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTodoScreen(todo: Todo) {
 
@@ -119,7 +121,7 @@ fun EditTodoScreen(todo: Todo) {
             .border(
                 border = BorderStroke(1.dp, OnBackground),
                 shape = RoundedCornerShape(15.dp)
-            ), backgroundColor = White
+            ), containerColor = White
         )
 
         FloatingActionButton(onClick = { /*TODO*/ }, modifier = Modifier
@@ -129,7 +131,7 @@ fun EditTodoScreen(todo: Todo) {
                 start.linkTo(datePicker.end)
                 end.linkTo(category.start)
             }
-            .alpha(.5f), backgroundColor = White) {
+            .alpha(.5f), containerColor = White) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_flag),
                 contentDescription = "Priority picker",
@@ -144,7 +146,7 @@ fun EditTodoScreen(todo: Todo) {
                 start.linkTo(flag.end)
                 end.linkTo(colorPicker.start)
             }
-            .alpha(.5f), backgroundColor = White) {
+            .alpha(.5f), containerColor = White) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_category),
                 contentDescription = "Category picker",
@@ -213,7 +215,7 @@ fun EditTodoScreen(todo: Todo) {
         }, modifier = Modifier.constrainAs(saveButton) {
             bottom.linkTo(parent.bottom, 32.dp)
             end.linkTo(closeButton.end)
-        }, backgroundColor = Primary)
+        }, containerColor = Primary)
     }
 }
 

@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +30,7 @@ import com.certified.do_it.ui.theme.*
 import com.certified.do_it.utils.Extensions.showToast
 import com.google.gson.Gson
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditCategoryScreen(category: Category) {
 
@@ -161,7 +163,7 @@ fun EditCategoryScreen(category: Category) {
                 start.linkTo(parent.start, 24.dp)
                 end.linkTo(colorPicker.start)
             }
-            .alpha(.5f), backgroundColor = if (isSystemInDarkTheme()) BackgroundDark else White) {
+            .alpha(.5f), containerColor = if (isSystemInDarkTheme()) BackgroundDark else White) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_flag),
                 contentDescription = "Priority picker",
@@ -235,7 +237,7 @@ fun EditCategoryScreen(category: Category) {
         }, modifier = Modifier.constrainAs(saveButton) {
             bottom.linkTo(parent.bottom, 32.dp)
             end.linkTo(closeButton.end)
-        }, backgroundColor = if (isSystemInDarkTheme()) PrimaryDark else Primary)
+        }, containerColor = if (isSystemInDarkTheme()) PrimaryDark else Primary)
     }
 }
 
